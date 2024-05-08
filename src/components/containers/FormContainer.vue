@@ -10,7 +10,7 @@
 
 <style scoped lang="sass">
 .FormContainer
-  padding: 0 256px
+  width: 800px
   display: flex
   flex-direction: column
   justify-content: start
