@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <div class="CustomFooter">
     <slot></slot>
@@ -10,17 +8,17 @@
 .CustomFooter
   width: 100%
   display: flex
-  flex-direction: column
   justify-content: center
   align-items: center
+  gap: 16px
 
   @media (min-width: 1201px)
-    gap: 8px
+    flex-direction: row
     padding: 0 0 12px
 
   @media (max-width: 1200px)
-    gap: 16px
-    padding: 64px 0 32px
+    flex-direction: column
+    padding: 0 0 12px
 
   > *
     margin: 0

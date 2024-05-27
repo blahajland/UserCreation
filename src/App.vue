@@ -1,103 +1,34 @@
-<script setup>
-import { ref } from 'vue'
-import BlahajInput from '@/library/vue/BlahajInput.vue'
-import BlahajPassword from '@/library/vue/BlahajPassword.vue'
+<script setup lang="ts">
 import CustomGap from '@/library/vue/CustomGap.vue'
 import BlahajButton from '@/library/vue/BlahajButton.vue'
-import { VALIDATOR_STATE } from '@/library/js/statusTools.js'
-import { switchTheme } from '@/library/js/themeTools.js'
+import { switchTheme } from '@/library/ts/theme-tools'
 import CustomFooter from '@/components/CustomFooter.vue'
-
-const formData = {
-  fullName: ref(''),
-  userName: ref(''),
-  password: {
-    pass1: ref(''),
-    pass2: ref('')
-  },
-  backupEmail: ref(''),
-  discordId: ref('')
-}
-
-const isValidDisplayName = (value) =>
-  new RegExp("^(?:[A-Za-z0-9]{1,30}[ ,.'-]{0,3})+$", 'gmi').test(value)
-    ? VALIDATOR_STATE.VALID
-    : VALIDATOR_STATE.INVALID
-const isValidUserName = (value) =>
-  new RegExp('^[A-Za-z0-9]+$', 'gmi').test(value) ? VALIDATOR_STATE.VALID : VALIDATOR_STATE.INVALID
-const isEmail = (value) =>
-  new RegExp('^[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*@[A-Za-z0-9]+(?:[._-][A-Za-z]{2,})+$', 'gmi').test(
-    value
-  )
-    ? VALIDATOR_STATE.VALID
-    : VALIDATOR_STATE.INVALID
-const isPwdValid = (value) => {
-  formData.password.pass2.value = ''
-  return new RegExp('^.{3,}$', 'gmi').test(value) ? VALIDATOR_STATE.VALID : VALIDATOR_STATE.INVALID
-}
-const isSamePwd = (value) =>
-  value === '' ? VALIDATOR_STATE.NONE : value === formData.password.pass1.value ? VALIDATOR_STATE.VALID : VALIDATOR_STATE.INVALID
+import { changeLoc } from '@/library/ts/common-tools'
 </script>
 
 <template>
   <div class="Form">
-    <img src="https://blahaj.land/static/images/Logo.png" />
+    <a href="http://blahaj.land">
+      <img src="https://blahaj.land/static/images/Logo.png" />
+    </a>
     <CustomGap gap="32px" />
-    <h1>Sign up</h1>
-    <p>awa uwu ewe</p>
-    <CustomGap gap="16px" />
-    <BlahajInput
-      :input="formData.fullName"
-      placeholder="Display name"
-      extra-text="mandatory"
-      datatype="name"
-      :validator="isValidDisplayName"
-    />
-    <BlahajInput
-      :input="formData.userName"
-      placeholder="User name"
-      extra-text="mandatory"
-      datatype="username"
-      :validator="isValidUserName"
-    />
-    <BlahajInput
-      :input="formData.backupEmail"
-      placeholder="E-mail address"
-      extra-text="mandatory"
-      datatype="email"
-      :validator="isEmail"
-    />
-    <BlahajPassword
-      :input="formData.password.pass1"
-      placeholder="Password"
-      :validator="isPwdValid"
-    />
-    <BlahajPassword
-      :input="formData.password.pass2"
-      placeholder="Retype your password"
-      :validator="isSamePwd"
-    />
-    <BlahajInput :input="formData.discordId" placeholder="Discord ID" />
-    <CustomGap gap="16px" />
-    <BlahajButton
-      style="align-self: center; padding: 20px 40px"
-      color="var(--surface1)"
-      hover="var(--surface2)"
-    >
-      <p>Sign up</p>
-    </BlahajButton>
+    <RouterView></RouterView>
     <CustomGap gap="24px" />
+    <div class="FillerGap" />
     <CustomFooter>
-      <p>&copy; <a href="https://blog.blahaj.land">eryn</a> Some rights reserved</p>
-      <p>Made by <a href="https://github.com/blahajland">Blahaj Team</a></p>
+      <p>&copy; <b>eryn</b> Some rights reserved</p>
+      <p>Made by <b>Blahaj Team</b></p>
     </CustomFooter>
   </div>
   <div class="Background">
-    <BlahajButton>
+    <BlahajButton
+      color="var(--background)"
+      @click="changeLoc('https://opencollective.com/blahajland')"
+    >
       <img src="https://blahaj.land/static/images/icons/donate.png" alt="Donate" />
       <p>Donate</p>
     </BlahajButton>
-    <BlahajButton @click="switchTheme()">
+    <BlahajButton @click="switchTheme()" color="var(--background)">
       <img src="https://blahaj.land/static/images/icons/theme.png" alt="Theme" />
       <p>Theme</p>
     </BlahajButton>
@@ -113,15 +44,18 @@ const isSamePwd = (value) =>
   align-items: stretch
   gap: 8px
   box-sizing: border-box
-  padding: 64px 32px 0
+  padding: 64px 48px 0
   width: 500px
   background: var(--background)
   overflow: auto
 
-  > img
-    width: 256px
+  > a
+    width: fit-content
     align-self: center
-    filter: var(--filter)
+
+    > img
+      width: 256px
+      filter: var(--filter)
 
   *
     margin: 0
@@ -136,4 +70,7 @@ const isSamePwd = (value) =>
   flex: 1 1
   background: url('https://blahaj.land/static/images/Background.png') center center no-repeat
   background-size: cover
+
+.FillerGap
+  flex: 1 1 0
 </style>
