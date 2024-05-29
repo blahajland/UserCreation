@@ -4,35 +4,32 @@ import BlahajButton from '@/library/vue/BlahajButton.vue'
 import { switchTheme } from '@/library/ts/theme-tools'
 import CustomFooter from '@/components/CustomFooter.vue'
 import { changeLoc } from '@/library/ts/common-tools'
+import { assets } from '@/library/ts/static-tools'
+
+const bgImg = 'url(' + assets.images.get('Background')
 </script>
 
-<template>
-  <div class="Form">
-    <a href="http://blahaj.land">
-      <img src="https://blahaj.land/static/images/Logo.png" />
-    </a>
-    <CustomGap gap="32px" />
-    <RouterView></RouterView>
-    <CustomGap gap="24px" />
-    <div class="FillerGap" />
-    <CustomFooter>
-      <p>&copy; <b>eryn</b> Some rights reserved</p>
-      <p>Made by <b>Blahaj Team</b></p>
-    </CustomFooter>
-  </div>
-  <div class="Background">
-    <BlahajButton
-      color="var(--background)"
-      @click="changeLoc('https://opencollective.com/blahajland')"
-    >
-      <img src="https://blahaj.land/static/images/icons/donate.png" alt="Donate" />
-      <p>Donate</p>
-    </BlahajButton>
-    <BlahajButton @click="switchTheme()" color="var(--background)">
-      <img src="https://blahaj.land/static/images/icons/theme.png" alt="Theme" />
-      <p>Theme</p>
-    </BlahajButton>
-  </div>
+<template lang="pug">
+  div.Form
+    a(href="https://blahaj.land")
+      img(:src="assets.images.get('Logo')")
+    CustomGap(gap="16px")
+    div.Buttons
+      BlahajButton(@click="changeLoc('https://opencollective.com/blahajland')")
+        img(:src="assets.images.icons.get('donate')", alt="Donate")
+        p Donate
+      BlahajButton(@click="switchTheme()")
+        img(:src="assets.images.icons.get('theme')", alt="Theme")
+        p Theme
+    CustomGap(gap="32px")
+    RouterView
+    CustomGap(gap="24px")
+    div.FillerGap
+    CustomFooter
+      p &copy; #[b eryn] Some rights reserved
+      p Made by #[b Blahaj Team]
+  div.Background
+
 </template>
 
 <style lang="sass">
@@ -60,15 +57,16 @@ import { changeLoc } from '@/library/ts/common-tools'
   *
     margin: 0
 
-.Background
+.Buttons
   display: flex
   flex-direction: row
-  justify-content: end
-  align-items: end
-  padding: 32px
+  justify-content: center
+  align-items: center
   gap: 12px
+
+.Background
   flex: 1 1
-  background: url('https://blahaj.land/static/images/Background.png') center center no-repeat
+  background: v-bind(bgImg) center center no-repeat
   background-size: cover
 
 .FillerGap

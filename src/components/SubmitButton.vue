@@ -2,10 +2,9 @@
 import BlahajButton from '@/library/vue/BlahajButton.vue'
 </script>
 
-<template>
-  <BlahajButton class="SubmitButton">
-    <p>Sign up</p>
-  </BlahajButton>
+<template lang="pug">
+BlahajButton.SubmitButton
+  p Sign up
 </template>
 
 <style lang="sass">
