@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import BlahajButton from '@/library/vue/BlahajButton.vue'
+import BlahajButton from '@/components/BlahajButton.vue'
 </script>
 
-<template lang="pug">
-BlahajButton.SubmitButton
-  p Sign up
+<template>
+  <BlahajButton class="SubmitButton">
+    <p>Sign up</p>
+  </BlahajButton>
 </template>
 
 <style lang="sass">

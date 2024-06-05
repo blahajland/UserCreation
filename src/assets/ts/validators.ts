@@ -1,4 +1,4 @@
-import { VALIDATOR_STATE } from '@/library/ts/common-types'
+import { VALIDATOR_STATE } from 'blahaj-library'
 import { displayNameRegEx, emailRegEx, userNameRegEx } from '@/assets/ts/regex'
 
 export const noValidator = () => VALIDATOR_STATE.NONE

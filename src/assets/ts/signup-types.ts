@@ -1,4 +1,4 @@
-import type { Validator } from '@/library/ts/common-types'
+import type { Validator } from 'blahaj-library'
 
 export interface SignUpInformation {
   value: string

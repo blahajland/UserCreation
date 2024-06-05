@@ -6,7 +6,7 @@ import {
   noValidator,
   validatorFactory
 } from '@/assets/ts/validators'
-import { VALIDATOR_STATE } from '@/library/ts/common-types'
+import { VALIDATOR_STATE } from 'blahaj-library'
 import { pwdRegEx } from '@/assets/ts/regex'
 
 const formData: SigUpInformations = {
