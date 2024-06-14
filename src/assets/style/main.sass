@@ -9,14 +9,18 @@ body
   font-family: sans-serif
   font-size: 0.9em
   color: var(--text)
+  background: var(--background)
 
 #app
-  background: var(--background)
+  position: fixed
+  top: 24px
+  bottom: 24px
+  left: 24px
+  right: 24px
   display: flex
   flex-direction: row
-  align-content: stretch
+  align-items: stretch
   justify-content: stretch
-  height: 100vh
 
 @media (max-width: 1200px)
   .displayOnMobile

@@ -17,7 +17,7 @@
     "blahaj-library": "github:blahajland/Library",
     "sass": "^1.77.2",
     "sass-loader": "^14.2.1",
-    "vue": "^3.4.21",
+    "vue": "^3.4.29",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

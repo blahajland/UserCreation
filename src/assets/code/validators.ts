@@ -1,5 +1,5 @@
 import { VALIDATOR_STATE } from 'blahaj-library'
-import { displayNameRegEx, emailRegEx, userNameRegEx } from '@/assets/ts/regex'
+import { displayNameRegEx, emailRegEx, userNameRegEx } from '@/assets/code/regex'
 
 export const noValidator = () => VALIDATOR_STATE.NONE
 

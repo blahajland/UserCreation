@@ -6,13 +6,11 @@
 
 <style lang="sass">
 .CustomFooter
-  width: 100%
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
   gap: 8px
-  padding: 0 0 12px
 
   > *
     margin: 0

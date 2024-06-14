@@ -12,7 +12,6 @@ export interface Password {
 }
 
 export interface SigUpInformations {
-  fullName: SignUpInformation
   userName: SignUpInformation
   passwords: Password
   backupEmail: SignUpInformation
@@ -20,7 +19,6 @@ export interface SigUpInformations {
 }
 
 export interface ExportedForm {
-  fullName: string
   userName: string
   password: string
   backupEmail: string

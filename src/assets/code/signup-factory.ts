@@ -1,20 +1,16 @@
-import type { SigUpInformations } from '@/assets/ts/signup-types'
+import type { SigUpInformations } from '@/assets/code/signup-types'
 import {
   isValidEmail,
   isValidDisplayName,
   isValidUserName,
   noValidator,
   validatorFactory
-} from '@/assets/ts/validators'
+} from '@/assets/code/validators'
 import { VALIDATOR_STATE } from 'blahaj-library'
-import { pwdRegEx } from '@/assets/ts/regex'
+import { pwdRegEx } from '@/assets/code/regex'
+import { ref } from 'vue'
 
 const formData: SigUpInformations = {
-  fullName: {
-    value: '',
-    isMandatory: true,
-    validator: isValidDisplayName
-  },
   userName: {
     value: '',
     isMandatory: true,
@@ -60,4 +56,4 @@ export const isSamePwd = (value: string): VALIDATOR_STATE =>
 
 formData.passwords.repeatedPassword.validator = isSamePwd
 
-export const getFormData = (): SigUpInformations => formData
+export const formDataRef = ref(formData)
