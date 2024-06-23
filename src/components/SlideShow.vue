@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { assets } from 'blahaj-library'
+import { getAsset } from 'blahaj-library'
 
 defineProps({
   sources: {
@@ -8,14 +8,14 @@ defineProps({
   }
 })
 
-const bgImg = 'url(' + assets.images.pictures.get('background') //temporary
+const bgImg = 'url(' + getAsset('/pictures/background.png') //temporary
 </script>
 
 <template>
   <div class="Slideshow">
     <div>
-      <img alt="Left" :src="assets.images.icons.get('left')" />
-      <img alt="Left" :src="assets.images.icons.get('right')" />
+      <img alt="Left" :src="getAsset('/icons/left.png')" />
+      <img alt="Left" :src="getAsset('/icons/right.png')" />
     </div>
   </div>
 </template>

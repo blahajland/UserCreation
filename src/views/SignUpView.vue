@@ -3,10 +3,10 @@ import CustomMessage from '@/components/CustomMessage.vue'
 import SubmitButton from '@/components/inputs/SubmitButton.vue'
 import BlahajInput from '@/components/inputs/BlahajInput.vue'
 import { formDataRef } from '@/assets/code/signup-factory'
-import { assets } from 'blahaj-library'
 import { ref } from 'vue'
 import FormContainer from '@/components/FormContainer.vue'
 import TitleContainer from '@/components/TitleContainer.vue'
+import { getAsset } from 'blahaj-library'
 
 const errorMessage = ref('')
 </script>
@@ -32,7 +32,7 @@ const errorMessage = ref('')
       extra-text="mandatory"
       datatype="username"
       :validator="formDataRef.userName.validator"
-      :icon="assets.images.icons.get('user')"
+      :icon="getAsset('/icons/user.png')"
       @input-updated="(e: string) => (formDataRef.userName.value = e)"
     ></BlahajInput>
     <BlahajInput
@@ -41,7 +41,7 @@ const errorMessage = ref('')
       extra-text="mandatory"
       datatype="email"
       :validator="formDataRef.backupEmail.validator"
-      :icon="assets.images.icons.get('mail')"
+      :icon="getAsset('/icons/mail.png')"
       @input-updated="(e: string) => (formDataRef.backupEmail.value = e)"
     ></BlahajInput>
     <BlahajInput
@@ -49,7 +49,7 @@ const errorMessage = ref('')
       :input="formDataRef.passwords.password.value"
       placeholder="Password"
       :validator="formDataRef.passwords.password.validator"
-      :icon="assets.images.icons.get('password')"
+      :icon="getAsset('/icons/password.png')"
       @input-updated="(e: string) => (formDataRef.passwords.password.value = e)"
     ></BlahajInput>
     <BlahajInput
@@ -57,14 +57,14 @@ const errorMessage = ref('')
       type="password"
       :input="formDataRef.passwords.repeatedPassword.value"
       placeholder="Retype your password"
-      :icon="assets.images.icons.get('password')"
+      :icon="getAsset('/icons/password.png')"
       :validator="formDataRef.passwords.repeatedPassword.validator"
       @input-updated="(e: string) => (formDataRef.passwords.repeatedPassword.value = e)"
     ></BlahajInput>
     <BlahajInput
       :input="formDataRef.discordId.value"
       placeholder="Discord ID"
-      :icon="assets.images.icons.get('discord')"
+      :icon="getAsset('/icons/discord.png')"
       @input-updated="(e: string) => (formDataRef.discordId.value = e)"
     ></BlahajInput>
   </FormContainer>

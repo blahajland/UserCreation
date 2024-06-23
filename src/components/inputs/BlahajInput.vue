@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type PropType, ref } from 'vue'
-import { assets, getEventValue, type Validator, VALIDATOR_STATE } from 'blahaj-library'
+import { getAsset, getEventValue, type Validator, VALIDATOR_STATE } from 'blahaj-library'
 
 const emits = defineEmits(['inputUpdated'])
 
@@ -58,18 +58,18 @@ const validateAndSubmitString = (value: string) => {
     <img
       v-if="currentState === VALIDATOR_STATE.INVALID"
       alt="Invalid"
-      :src="assets.images.icons.get('input_invalid-state')"
+      :src="getAsset('/icons/invalid.png')"
     />
     <img
       v-if="currentState === VALIDATOR_STATE.VALID"
       alt="Valid"
-      :src="assets.images.icons.get('input_valid-state')"
+      :src="getAsset('/icons/valid.png')"
     />
     <a v-if="type === 'password' && isShown" @click="isShown = false">
-      <img alt="Show" :src="assets.images.icons.get('input_show-pwd')" />
+      <img alt="Show" :src="getAsset('/icons/show.png')" />
     </a>
-    <a @click="isShown = true" v-if="type === 'password' && !isShown">
-      <img alt="Hide" :src="assets.images.icons.get('input_hide-pwd')" />
+    <a v-if="type === 'password' && !isShown" @click="isShown = true">
+      <img alt="Hide" :src="getAsset('/icons/hide.png')" />
     </a>
   </div>
 </template>
