@@ -1,75 +1,84 @@
 <script setup lang="ts">
-import { type PropType, ref } from 'vue'
-import { getAsset, getEventValue, type Validator, VALIDATOR_STATE } from 'blahaj-library'
+import { type PropType, ref } from "vue";
+import {
+  getAsset,
+  getEventValue,
+  type Validator,
+  VALIDATOR_STATE,
+} from "blahaj-library";
 
-const emits = defineEmits(['inputUpdated'])
+const emits = defineEmits(["inputUpdated"]);
 
 const props = defineProps({
   input: {
     type: String,
-    required: true
+    required: true,
   },
   placeholder: {
     type: String,
-    default: 'Value'
+    default: "Value",
   },
   extraText: {
     type: String,
-    default: ''
+    default: "",
   },
   datatype: {
     type: String,
-    default: 'off'
+    default: "off",
   },
   validator: {
     type: Function as PropType<Validator>,
-    default: () => VALIDATOR_STATE.NONE
+    default: () => VALIDATOR_STATE.NONE,
   },
   icon: {
     type: String,
-    default: ''
+    default: "",
   },
   type: {
     type: String,
-    validator: (value: any) => ['text', 'password'].includes(value),
-    default: 'text'
-  }
-})
+    validator: (value: string) => ["text", "password"].includes(value),
+    default: "text",
+  },
+});
 
-const currentState = ref(VALIDATOR_STATE.NONE)
-const isShown = ref(props.type !== 'password')
+const currentState = ref(VALIDATOR_STATE.NONE);
+const isPwdVisible = ref(props.type !== "password");
 
 const validateAndSubmitString = (value: string) => {
-  currentState.value = value === '' ? VALIDATOR_STATE.NONE : props.validator(value)
-  emits('inputUpdated', value)
-}
+  currentState.value =
+    value === "" ? VALIDATOR_STATE.NONE : props.validator(value);
+  emits("inputUpdated", value);
+};
 </script>
 
 <template>
-  <div :class="{ valid: currentState === 1, invalid: currentState === 2 }" class="BlahajInput">
-    <img v-if="icon !== ''" :src="icon" alt="Input" />
+  <div
+    :class="{ valid: currentState === 1, invalid: currentState === 2 }"
+    class="BlahajInput"
+  >
+    <NuxtImg v-if="icon !== ''" :src="icon" alt="Input" />
     <input
-      :type="type"
+      :type="isPwdVisible ? 'text' : 'password'"
       :value="input"
       :autocomplete="datatype"
       :placeholder="`${placeholder} ${extraText !== '' ? `&bull; ${extraText}` : ''}`"
       @input="validateAndSubmitString(getEventValue($event))"
     />
-    <img
+    <NuxtImg
       v-if="currentState === VALIDATOR_STATE.INVALID"
       alt="Invalid"
-      :src="getAsset('/icons/invalid.png')"
+      :src="getAsset('/icons/invalid.svg')"
     />
-    <img
+    <NuxtImg
       v-if="currentState === VALIDATOR_STATE.VALID"
       alt="Valid"
-      :src="getAsset('/icons/valid.png')"
+      :src="getAsset('/icons/valid.svg')"
     />
-    <a v-if="type === 'password' && isShown" @click="isShown = false">
-      <img alt="Show" :src="getAsset('/icons/show.png')" />
+    <a v-if="type === 'password' && isPwdVisible" @click="isPwdVisible = false">
+      <NuxtImg alt="Show" :src="getAsset('/icons/show.svg')" />
     </a>
-    <a v-if="type === 'password' && !isShown" @click="isShown = true">
-      <img alt="Hide" :src="getAsset('/icons/hide.png')" />
+    <a v-if="type === 'password' && !isPwdVisible" @click="isPwdVisible = true">
+      <NuxtImg alt="Hide" :src="getAsset('/icons/hide.svg')" />
     </a>
   </div>
 </template>

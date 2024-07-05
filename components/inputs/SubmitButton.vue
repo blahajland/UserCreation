@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BlahajButton from '@/components/inputs/BlahajButton.vue'
+import BlahajButton from "@/components/inputs/BlahajButton.vue";
 </script>
 
 <template>
