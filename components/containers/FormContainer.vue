@@ -2,7 +2,7 @@
 
 <template>
   <div class="FormContainer">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -12,5 +12,20 @@
   flex-direction: column
   justify-content: start
   align-items: stretch
-  gap: 12px
+  overflow: scroll
+  gap: 32px
+
+  > h2, > p
+    text-align: center
+
+  > a
+    width: fit-content
+    align-self: center
+
+    > img
+      height: 36px
+      filter: var(--filter)
+
+  *
+    margin: 0
 </style>

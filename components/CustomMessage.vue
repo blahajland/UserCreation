@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import CustomGap from "./CustomGap.vue";
-import { colorsService } from "blahaj-library";
-
 defineProps({
   color: {
     type: String,
-    validator: (clr: string) => colorsService.isValidColor(clr),
     default: "#FF000040",
   },
 });
@@ -13,9 +9,8 @@ defineProps({
 
 <template>
   <div class="CustomMessage">
-    <slot></slot>
+    <slot />
   </div>
-  <CustomGap gap="8px" />
 </template>
 
 <style lang="sass">
@@ -30,10 +25,11 @@ defineProps({
   justify-content: stretch
   align-items: stretch
   gap: 4px
+  animation: MessageJumpIn ease-in-out 0.5s
+
+  > img
+    width: 24px
 
   *
     margin: 0
-
-  > h1, > h2, > h3, > h4, > h5, > h6
-    text-align: center
 </style>

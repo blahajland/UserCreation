@@ -1,30 +1,18 @@
 <script lang="ts" setup>
-import { colorsService } from "blahaj-library";
-
 defineProps({
-  font: {
-    type: String,
-    validator: (clr: string) => colorsService.isValidColor(clr),
-    default: "var(--text)",
-  },
-  background: {
-    type: String,
-    validator: (clr: string) => colorsService.isValidColor(clr),
-    default: "var(--surface1)",
-  },
-  hover: {
-    type: String,
-    default: "color-mix(in srgb, var(--surface1), var(--surface2))",
-  },
   href: {
     type: String,
     default: undefined,
+  },
+  isSubmit: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
 
 <template>
-  <a :href="href" class="BlahajButton">
+  <a :href="href" class="BlahajButton" :class="{ submitter: isSubmit }">
     <slot />
   </a>
 </template>
@@ -33,13 +21,13 @@ defineProps({
 .BlahajButton
   padding: 10px 20px
   border-radius: var(--radius-inf)
-  background: v-bind(background) !important
+  background: var(--surface1)
   display: flex
   align-items: center
   justify-content: center
   cursor: pointer
   transition: var(--trans)
-  color: v-bind(font) !important
+  color: var(--text)
   gap: 10px
   text-decoration: none
   flex: 0 0
@@ -54,8 +42,12 @@ defineProps({
     font-weight: bold
     white-space: nowrap
 
+  &.submitter
+    align-self: center
+    padding: 20px 40px
+
   &:hover
-    background: v-bind(hover) !important
+    background: color-mix(in srgb, var(--surface1), var(--surface2))
 
   &:active
     background: var(--surface2) !important

@@ -1,20 +1,16 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="TitleContainer">
+  <div class="InputsContainer">
     <slot />
   </div>
 </template>
 
 <style lang="sass">
-.TitleContainer
+.InputsContainer
   display: flex
   flex-direction: column
+  justify-content: start
   align-items: stretch
-  justify-content: stretch
-  gap: 4px
-
-  > *
-    text-align: center
-    max-width: 100%
+  gap: 12px
 </style>

@@ -1,25 +1,34 @@
-import blahajInfo from "./assets/data/info";
+const DESCRIPTION =
+  "Blahaj Land is a free service offering everything from email and Nextcloud to static page hosting, a fast and reliable git forge, collaborative HedgeDoc documents, and even privacy-focused video streaming with Piped and Invidious!";
+const TITLE = "Sign up - Blahaj Land";
 
 export default defineNuxtConfig({
+  ssr: false,
   future: {
     compatibilityVersion: 4,
   },
   app: {
-    baseURL: blahajInfo.defaultPath,
+    baseURL: "/signup/",
     head: {
       htmlAttrs: {
         lang: "en",
       },
-      title: blahajInfo.title,
+      title: TITLE,
       meta: [
         { charset: "utf-8" },
-        { name: "description", content: blahajInfo.description },
-        { property: "og:title", content: blahajInfo.catchphrase },
-        { property: "og:description", content: blahajInfo.description },
-        { property: "og:image", content: blahajInfo.image },
+        { name: "description", content: DESCRIPTION },
+        { property: "og:title", content: TITLE },
+        { property: "og:description", content: DESCRIPTION },
+        {
+          property: "og:image",
+          content: "https://assets.blahaj.land/pictures/thumbnail.png",
+        },
         { property: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:image", content: blahajInfo.twitterImage },
-        { property: "twitter:description", content: blahajInfo.description },
+        {
+          property: "twitter:image",
+          content: "https://assets.blahaj.land/pictures/thumbnail-twitter.png",
+        },
+        { property: "twitter:description", content: DESCRIPTION },
         { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       ],
       link: [
@@ -44,8 +53,8 @@ export default defineNuxtConfig({
       ],
     },
   },
-  css: ["@/assets/style/main.sass"],
-  modules: ["@nuxt/eslint", "@nuxt/image"],
+  css: ["@/style/main.sass"],
+  modules: ["@nuxt/eslint", "@nuxt/image", "@pinia/nuxt"],
   image: {
     screens: {
       mb: 200,

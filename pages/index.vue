@@ -1,84 +1,79 @@
 <script setup lang="ts">
-import SubmitButton from "@/components/inputs/SubmitButton.vue";
 import BlahajInput from "@/components/inputs/BlahajInput.vue";
-import { ref } from "vue";
 import FormContainer from "~/components/containers/FormContainer.vue";
 import TitleContainer from "~/components/containers/TitleContainer.vue";
-import { getAsset, VALIDATOR_STATE } from "blahaj-library";
-import {
-  isValidEmail,
-  isValidUsername,
-  validatorFactory,
-} from "assets/code/signup-factory";
+import {$get} from "~/services/assets/assets.service";
+import BlahajButton from "~/components/inputs/BlahajButton.vue";
+import InputsContainer from "~/components/containers/InputsContainer.vue";
+import {bridgeService} from "~/services/bridge/bridge.service";
 
-const formRef = ref({
-  userName: "",
-  password: "",
-  backupEmail: "",
-  discordId: "",
-});
-const sndPwd = ref("");
+const $router = useRouter();
+const $form = useForm();
+const $message = useErrorMessage();
 
-const isValidPwd = (value: string) => {
-  sndPwd.value = "";
-  return validatorFactory(/^.{3,}$/)(value);
-};
-
-const isSamePwd = (value: string) => {
-  if (value === "") return VALIDATOR_STATE.NONE;
-  return value === formRef.value.password
-    ? VALIDATOR_STATE.VALID
-    : VALIDATOR_STATE.INVALID;
-};
+const sendData = async () => {
+  const validationError = bridgeService.validateDataOrInform($form.getStates())
+  if (validationError) {
+    $message.setErrorMessage(validationError.title, validationError.message)
+    return
+  }
+  const serverError = await bridgeService.sendFormData($form.getForm())
+  if (serverError) {
+    $message.setErrorMessage(serverError.title, serverError.message)
+    return
+  }
+  $form.setPassed()
+  await $router.push('/success')
+}
 </script>
 
 <template>
-  <TitleContainer>
-    <h2>Create a blahaj.land account</h2>
-    <p>Subtitle</p>
-    <p>maybe even two lines</p>
-  </TitleContainer>
   <FormContainer>
-    <BlahajInput
-      :input="formRef.userName"
-      placeholder="User name"
-      datatype="username"
-      :validator="isValidUsername"
-      :icon="getAsset('/icons/user.svg')"
-      @input-updated="(e: string) => (formRef.userName = e)"
-    />
-    <BlahajInput
-      :input="formRef.backupEmail"
-      placeholder="E-mail address"
-      datatype="email"
-      :validator="isValidEmail"
-      :icon="getAsset('/icons/mail.svg')"
-      @input-updated="(e: string) => (formRef.backupEmail = e)"
-    />
-    <BlahajInput
-      type="password"
-      :input="formRef.password"
-      placeholder="Password"
-      :validator="isValidPwd"
-      :icon="getAsset('/icons/password.svg')"
-      @input-updated="(e: string) => (formRef.password = e)"
-    />
-    <BlahajInput
-      v-if="formRef.password !== ''"
-      type="password"
-      :input="sndPwd"
-      placeholder="Retype your password"
-      :icon="getAsset('/icons/password.svg')"
-      :validator="isSamePwd"
-      @input-updated="(e: string) => (sndPwd = e)"
-    />
-    <BlahajInput
-      :input="formRef.discordId"
-      placeholder="Discord ID"
-      extra-text="optional"
-      :icon="getAsset('/icons/discord.svg')"
-      @input-updated="(e: string) => (formRef.discordId = e)"
-    />
+    <TitleContainer>
+      <h2>Create a blahaj.land account</h2>
+      <p>It's free and takes less than 2 minutes :3</p>
+    </TitleContainer>
+    <CustomMessage v-if="$message.isDisplayed">
+      <NuxtImg :src="$get('/icons/invalid.svg')"/>
+      <h3>{{ $message.errorTitle }}</h3>
+      <p>{{ $message.errorMessage }}</p>
+    </CustomMessage>
+    <InputsContainer>
+      <BlahajInput
+          :input="$form.userName"
+          placeholder="User name"
+          datatype="username"
+          :state="$form.userNameState"
+          :icon="$get('/icons/user.svg')"
+          @input-updated="(e: string) => $form.setUserName(e)"
+      />
+      <BlahajInput
+          :input="$form.displayName"
+          placeholder="Display name"
+          datatype="nickname"
+          :state="$form.displayNameState"
+          :icon="$get('/icons/friend.svg')"
+          @input-updated="(e: string) => $form.setDisplayName(e)"
+      />
+      <BlahajInput
+          :input="$form.email"
+          placeholder="E-mail address"
+          datatype="email"
+          :state="$form.emailState"
+          :icon="$get('/icons/mail.svg')"
+          @input-updated="(e: string) => $form.setEmail(e)"
+      />
+      <BlahajInput
+          :input="$form.discordId"
+          placeholder="Discord ID"
+          extra-text="optional"
+          :state="$form.discordIdState"
+          :icon="$get('/icons/discord.svg')"
+          @input-updated="(e: string) => $form.setDiscordId(e)"
+      />
+    </InputsContainer>
+    <BlahajButton is-submit @click="sendData()">
+      <p>Create an account</p>
+    </BlahajButton>
   </FormContainer>
-  <SubmitButton />
 </template>
