@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { validationService } from "~/services/validation/validation.service";
-import type {BridgeData, BridgeStates} from "~/services/bridge/bridge.common";
+import type { BridgeData, BridgeStates } from "~/services/bridge/bridge.common";
 
 export const useForm = defineStore("form", () => {
-  const passedRef = ref<boolean>(false)
+  const passedRef = ref<boolean>(false);
 
   const formDataRef = ref({
     userName: "",
@@ -13,7 +13,7 @@ export const useForm = defineStore("form", () => {
     discordId: "",
   });
 
-  const hasPassed = computed(() => passedRef.value)
+  const hasPassed = computed(() => passedRef.value);
 
   const userName = computed(() => formDataRef.value.userName);
 
@@ -48,25 +48,25 @@ export const useForm = defineStore("form", () => {
 
   const setDiscordId = (value: string) => (formDataRef.value.discordId = value);
 
-  const getForm = () : BridgeData => {
+  const getForm = (): BridgeData => {
     return {
-      username: formDataRef.value.displayName,
+      username: formDataRef.value.userName,
       display_name: formDataRef.value.displayName,
       recovery_email: formDataRef.value.backupEmail,
-      discord_username: formDataRef.value.discordId
-    }
-  }
+      discord_username: formDataRef.value.discordId,
+    };
+  };
 
-  const getStates = () : BridgeStates => {
+  const getStates = (): BridgeStates => {
     return {
-      username: displayNameState.value,
+      username: userNameState.value,
       display_name: displayNameState.value,
       recovery_email: emailState.value,
-      discord_username: discordIdState.value
-    }
-  }
+      discord_username: discordIdState.value,
+    };
+  };
 
-  const setPassed = () => passedRef.value = true;
+  const setPassed = () => (passedRef.value = true);
 
   return {
     userName,
@@ -84,6 +84,6 @@ export const useForm = defineStore("form", () => {
     setDiscordId,
     getForm,
     getStates,
-    setPassed
+    setPassed,
   };
 });

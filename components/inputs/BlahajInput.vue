@@ -35,6 +35,10 @@ const props = defineProps({
     validator: (value: string) => ["text", "password"].includes(value),
     default: "text",
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const isPwdVisible = ref(props.type !== "password");
@@ -50,6 +54,8 @@ const getEventValue = (event: Event): string =>
   >
     <NuxtImg v-if="icon !== ''" :src="icon" alt="Input" />
     <input
+      :disabled="disabled"
+      :readonly="disabled"
       :type="isPwdVisible ? 'text' : 'password'"
       :value="input"
       :autocomplete="datatype"

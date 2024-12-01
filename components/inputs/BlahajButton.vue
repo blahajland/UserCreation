@@ -4,7 +4,7 @@ defineProps({
     type: String,
     default: undefined,
   },
-  isSubmit: {
+  submit: {
     type: Boolean,
     default: false,
   },
@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <a :href="href" class="BlahajButton" :class="{ submitter: isSubmit }">
+  <a :href="href" class="BlahajButton" :class="{ submitter: submit }">
     <slot />
   </a>
 </template>

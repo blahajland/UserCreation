@@ -1,29 +1,36 @@
-import {defineStore} from "pinia";
-import {ref} from "vue";
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
 export const useErrorMessage = defineStore("message", () => {
-    const isDisplayedRef = ref<boolean>(false)
+  const isDisplayedRef = ref<boolean>(false);
 
-    const errorTitleRef = ref<string>('')
+  const errorTitleRef = ref<string>("");
 
-    const errorMessageRef = ref<string>('')
+  const errorMessageRef = ref<string>("");
 
-    const isDisplayed = computed(() => isDisplayedRef.value)
+  const isDisplayed = computed(() => isDisplayedRef.value);
 
-    const errorTitle = computed(() => errorTitleRef.value)
+  const errorTitle = computed(() => errorTitleRef.value);
 
-    const errorMessage = computed(() => errorMessageRef.value)
+  const errorMessage = computed(() => errorMessageRef.value);
 
-    const setErrorMessage = (title: string, message: string) => {
-        isDisplayedRef.value = true
-        errorTitleRef.value = title
-        errorMessageRef.value = message
-    }
+  const setErrorMessage = (title: string, message: string) => {
+    isDisplayedRef.value = true;
+    errorTitleRef.value = title;
+    errorMessageRef.value = message;
+  };
 
-    return {
-        isDisplayed,
-        errorTitle,
-        errorMessage,
-        setErrorMessage
-    }
+  const hide = () => {
+    isDisplayedRef.value = false;
+    errorTitleRef.value = "";
+    errorMessageRef.value = "";
+  };
+
+  return {
+    isDisplayed,
+    errorTitle,
+    errorMessage,
+    setErrorMessage,
+    hide,
+  };
 });

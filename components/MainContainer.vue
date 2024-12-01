@@ -19,6 +19,7 @@ import { $get } from "~/services/assets/assets.service";
   flex-direction: column
   justify-content: stretch
   align-content: center
+  overflow: scroll
   background: var(--background)
   z-index: 1
   padding: 64px 32px 32px

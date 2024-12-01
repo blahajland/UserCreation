@@ -12,7 +12,6 @@
   flex-direction: column
   justify-content: start
   align-items: stretch
-  overflow: scroll
   gap: 32px
 
   > h2, > p
